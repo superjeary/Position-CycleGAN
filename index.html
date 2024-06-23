@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="">
+  <meta name="keywords" content="Deformable Objects, Deformable Linear Objects, DLO">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  
+  <title>Transfer the push-grasp-place skill from simulation to reality based on Position-CycleGAN</title>  
+  <!--title-->>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+
+
+<body>
+
+<section class="hero">
+  <!-- 标题+作者 -->
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Transfer the push-grasp-place skill from simulation to reality based on Position-CycleGAN</h1>
+          <div class="is-size-5 publication-authors">
+			  <p>Rong Jiang, Xu Cheng, Hongrui Sang, Zhipeng Wang, Yanmin Zhou and Bin He, Senior Member, IEEE</p> <!-- 这里添加作者信息 -->
+          </div>
+          <div class="column has-text-centered">
+            <div class="publication-links">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="content has-text-justified">
+          <p style="font-size: larger; text-indent: 2em;">
+            <span style="font-weight: bold;">Due to the large difference between simulation and reality, the skill learned in simulations cannot be directly migrated into real-world robots. Therefore, we use Position-CycleGAN (a domain adaptation method proposed in our previous work [1]) to transfer the learned push-grasp-place skill from simulation to reality. The details of the Position-CycleGAN and real-world experiments are introduced as follows:
+		  </p>      
+	
+        </div>
+      </div>
+    </div>
+
+        <div class="content has-text-centered">
+
+            <div class="content has-text-justified">		
+				<p>
+				<span style="font-weight: bold;">(1)	The skill sim-to-real transfer method based on Position-CycleGAN 
+				</p>
+				<p style="text-indent: 2em;">
+				From the perspective of solving data sources, simulators have been an appealing alternative for addressing the demands of data. Compared with real-world systems, simulators can quickly and safely generate robot-environment interaction data. However, due to the large gap between simulation and reality, most of the skills trained in simulations cannot be directly migrated into real-world robots.
+				</p>
+				<p style="text-indent: 2em;">
+				To transfer the skill from simulation to reality, we first propose a novel pixel-level domain adaptation method named Position-CycleGAN, which can translate real images to simulated images while also preserving the task-related information. And then, we conduct a reverse reality-to-simulation manner to migrate the policy trained in simulations into real robots directly.
+				</p>
+				<p>
+				1) Position-CycleGAN
+				</p>
+				<p style="text-indent: 2em;">
+				CycleGAN is a technique for learning two generative models to map between two image domains X and Y with unpaired data. For policy sim-to-real transfer, X and Y represent the simulation domain and the real-world domain respectively. The real-to-sim generator is presented as \( G_{\text{sim}}: Y \rightarrow X \), and the sim-to-real generator is presented as \( G_{\text{real}}: X \rightarrow Y \). Two adversarial discriminators \( D_{\text{sim}} \) and \( D_{\text{real}} \) distinguish simulated images from adapted simulation and real images from adapted real.
+				</p>
+				<p style="text-indent: 2em;">
+				Although CycleGAN can learn to convert image styles between domains using unpaired data, the task-related information may be changed during the image-to-image translation process, such as the features of objects. Intuitively, these features of objects are the key to robot manipulation tasks. To address this problem, we propose the Position-CycleGAN, which jointly trains CycleGAN with two position estimation models (\(P_{\text{sim}}(x)\) and \(P_{\text{real}}(y)\))
+				. We use them to detect the pixel positions of objects in simulated images and real-world images respectively. And, a position consistency loss \( \mathcal{L}_{\text{position}} \)
+				 is introduced to enforce that the positions of objects detected by the position estimation model should be invariant under the CycleGAN transformation. Fig.1 illustrates the structure of Position-CycleGAN.
+				</p>
+
+				
+                <figure class="figure">
+                    <img src="./static/images/1.png"
+                        class="interpolation-image"
+                        alt="Skill sim-to-real transfer process"
+                        style="width: 60%; height: auto;">
+                    <figcaption class="figure-caption">Fig. 1. The structure of the Position-CycleGAN [1]</figcaption>
+                </figure>
+                <p style="text-indent: 2em;">
+					The full objective of the Position-CycleGAN is:</p>
+		            <div class="equation">
+		                \[
+		                \mathcal{L}_{\text{Position-CycleGAN}} = \lambda_1 \mathcal{L}_{\text{GAN}_{\text{sim}}} + \lambda_2 \mathcal{L}_{\text{GAN}_{\text{real}}} + \lambda_3 \mathcal{L}_{\text{cyc}} + \lambda_4 \mathcal{L}_{\text{position}} + \lambda_5 \mathcal{L}_{\text{id}}
+		                \]
+		            </div>
+		            <p>where:</p>
+		            <div class="equation">
+		                \[
+		                \mathcal{L}_{\text{GAN}_{\text{sim}}} = \mathbb{E}_{x \in X} \left[ \log D_{\text{sim}}(x) \right] + \mathbb{E}_{y \in Y} \left[ \log \left( 1 - D_{\text{sim}}(G_{\text{sim}}(y)) \right) \right]
+		                \]
+		            </div>
+		            <div class="equation">
+		                \[
+		                \mathcal{L}_{\text{GAN}_{\text{real}}} = \mathbb{E}_{y \in Y} \left[ \log D_{\text{real}}(y) \right] + \mathbb{E}_{x \in X} \left[ \log \left( 1 - D_{\text{real}}(G_{\text{real}}(x)) \right) \right]
+		                \]
+		            </div>
+		            <div class="equation">
+                        \[
+                        \mathcal{L}_{cyc} = \mathbb{E}_{y \in Y} \left[ \| G_{\text{real}}(G_{\text{sim}}(y)) - y \|_1 \right] + \mathbb{E}_{x \in X} \left[ \| G_{\text{sim}}(G_{\text{real}}(x)) - x \|_1\right]
+                        \]
+		            </div>
+		            <div class="equation">
+		                \[
+		                \mathcal{L}_{\text{position}} = \mathbb{E}_{x \in X}\left[\| P_{\text{sim}}(x) - P_{\text{real}}(G_{\text{real}}(x)) \|_1\right] + \mathbb{E}_{y \in Y} \left[\| P_{\text{real}}(y) - P_{\text{sim}}(G_{\text{sim}}(y)) \|_1\right]
+		                \]
+		            </div>
+		            <div class="equation">
+		                \[
+		                \mathcal{L}_{\text{id}} = \mathbb{E}_{x \in X}\left[ \| G_{\text{sim}}(x) - x \|_1\right] + \mathbb{E}_{y \in Y} \left[\| G_{\text{real}}(y) - y \|_1\right]
+		                \]
+		            </div>
+                        <p>
+                          2) The process of policy sim-to-real transfer
+                        </p>
+						<p style="text-indent: 2em;">
+						 With the help of Position-CycleGAN, the policies trained in the simulation can be directly transferred to the reality in a reverse reality-to-simulation manner. The operation process of the reverse reality-to-simulation manner is shown in Fig.2. In the method, instead of translating the simulated images to real-world images, we use the real-to-sim generator \( G_{\text{sim}} \) in Position-CycleGAN to translate the real-world images to look more like those in simulation. By this way, although robots work in a real environment, what they see and receive are simulated images. This can effectively trick the robot and make it believe that it is still in the simulation. Therefore, the policies trained in simulations can be directly applied in the real-world.
+						</p>
+                        <figure class="figure">
+                           <img src="./static/images/2.png"
+                               class="interpolation-image"
+                                alt="Skill sim-to-real transfer process"
+                                style="width: 80%; height: auto;">
+                            <figcaption class="figure-caption">Fig. 2. The skill sim-to-real transfer process based on Position-CycleGAN</figcaption>
+                        </figure>
+						<p>
+						<span style="font-weight: bold;">(2)	Policy sim-to-real transfer Experiments
+						</p>
+						<p>
+						1) Real-world Experimental setup
+						</p>
+						<p style="text-indent: 2em;">
+						The simulation environment used to train the push-grasp-place skill is shown in Fig.3. Referring to the simulation environment, we use a real UR5 arm with a Robotiq 85 gripper and a RealSense D435 camera to build a real environment shown in Fig.3. In the push-grasp-place task, the experimental parameters for training the Position-CycleGAN are given in Table I.
+						</p>
+						<figure class="figure">
+						   <img src="./static/images/3.png"
+						       class="interpolation-image"
+						        alt="Skill sim-to-real transfer process"
+						        style="width: 60%; height: auto;">
+						    <figcaption class="figure-caption">Fig. 3 The setup of the real experiments</figcaption>
+						</figure>
+						
+						
+						<figure class="figure">
+						   <img src="./static/images/5.png"
+						       class="interpolation-image"
+						        alt="Skill sim-to-real transfer process"
+						        style="width: 80%; height: auto;">					
+						</figure>		
+						
+						<p>
+						2) Experiment Results
+						</p>
+						<p style="text-indent: 2em;">
+						We illustrate the experiment results from the following two aspects:
+						</p>
+						<p style="text-indent: 2em;">
+						First, we illustrate the performance of the Position-CycleGAN in transferring the real-world images to simulated images. Fig.4 compares the results of the standard CycleGAN and our Position-CycleGAN. By comparing the results, we can find that (1) Although CycleGAN can transfer images to the simulation domain, the object features in the adapted image maybe changed. For example, the object layout marked by the yellow box in Fig.4 has been altered. (2) In the contrast, Position-CycleGAN can produce simulated images while keeping the object features unchanged. This is mainly because that the position-consistency loss designed in Position-CycleGAN encourages the GAN to retain object-related information, which is crucial for robot manipulation tasks.
+						</p>
+						<figure class="figure">
+						   <img src="./static/images/4.png"
+						       class="interpolation-image"
+						        alt="Skill sim-to-real transfer process"
+						        style="width: 60%; height: auto;">
+						    <figcaption class="figure-caption">Fig.4. Examples of image style transfer by the Position-CycleGAN and CycleGAN</figcaption>
+						</figure>	
+						<p style="text-indent: 2em;">
+						Furthermore, we evaluate the transfer performance of the push-grasp-place skill in the real world. We compare the transfer results of Position-CycleGAN with those of two baseline methods. One is directly applying the simulation-trained policy in the real world without any adaptation. The other is transferring the policy to the real world by using the standard CycleGAN. Table Ⅱ compares the success rates in the real world by using these three methods.
+						</p>
+						
+					    <figure class="figure">
+					       <img src="./static/images/6.png"
+					           class="interpolation-image"
+					            alt="Skill sim-to-real transfer process"
+					            style="width: 80%; height: auto;">					
+					    </figure>	
+										
+						<p style="text-indent: 2em;">
+						As shown in TABLE Ⅱ, if no adaptation methods are applied, the success rate in the real world is only 10%. This indicates that there is a large visual gap between simulation and reality. When using CycleGAN, the performance of the policy can be improved to some extent, but the success rate of the policy can be only improved to 44%. This is mainly because the task-related information such as the layout of objects occasionally changes during adaptation, as discussed earlier. Comparatively, when employing the sim-to-real transfer method based on Position-CycleGAN, we achieve the highest real-world success rate, reaching up to 68%. This is mainly because Position-CycleGAN can better maintain task-relevant features in the images than CycleGAN during the transfer process. The videos 1 and 2 showcase examples of robots performing the push-grasp-place manipulation in real-world environments. At each time, the RGB observation obtained from the real world is first translated to simulated image, and then fed to the policy network learned in simulations to get the action command in the current state. Then the robot executes the action command in the real world and obtains a new RGB observation. The robot repeats the above process until the task is completed.
+						</p>
+						<p style="text-indent: 2em;">
+						These results illustrate that the learned skill can successfully perform the push-grasp-place task in the real-world environments with the help of sim-to-real transfer method. However, the result also indicates that there is still significant room for improvement in the performance of robot skills in real-world environments. This is mainly due to the phenomenon of morphological blurring of the robot end-effector in the images after adaptation, leading to errors in policy decision-making. In future work, we will explore more effective methods for skill sim-to-real transfer to enhance the performance of long-horizon skills in real world.
+						</p>
+						<p>
+						<span style="font-weight: bold;">Reference
+						</p>
+						<p>
+						[1] R. Jiang, B. He, Z. Wang, Y. Zhou, S. Xu and X. Li, "A Novel Simulation-Reality Closed-Loop Learning Framework for Autonomous Robot Skill Learning," in IEEE Transactions on Cognitive and Developmental Systems, vol. 14, no. 4, pp. 1520-1531, Dec. 2022, doi: 10.1109/TCDS.2021.3118294.
+						</p>
+
+		        </div>
+      </div>
+    </div>
+</section>
+
+
+
+<h3 class="title is-4 has-text-centered">Video1: The target object is obstructed (goal id: 000010)</h3>
+<div class="content has-text-centered">
+  <video id="shape_control_task_1"
+         controls
+         muted
+         preload
+         playsinline
+         width="20%">
+    <source src="./static/videos/video1.mp4"
+            type="video/mp4">
+  </video>
+</div>
+
+<h3 class="title is-4 has-text-centered"> Video 2: The target object is unobstructed (goal id: 100000)</h3>
+<div class="content has-text-centered">
+  <video id="shape_control_task_2"
+         controls
+         muted
+         preload
+         playsinline
+         width="20%">
+    <source src="./static/videos/video2.mp4"
+            type="video/mp4">
+  </video>
+</div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>
